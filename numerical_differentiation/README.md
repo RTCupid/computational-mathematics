@@ -1,43 +1,67 @@
-# Лабораторная № 1. Численное дифференцирование
+# Lab 1. Numerical Differentiation
 
-Основной отчёт — [numerical_differentiation.ipynb](numerical_differentiation.ipynb).
-В нём приведены задание, аналитические производные, пять разностных формул,
-пять выполненных графиков и выводы. Каждый график содержит пять линий;
-обе оси логарифмические. Изображения также находятся в [figures](figures).
+**English** | [Русский](README.ru.md)
 
-На фотографии не указана точка вычисления, поэтому выбрана **x₀ = 1**.
-В notebook её можно изменить в ячейке с `X0`. Для полного набора шагов и
-всех функций требуется `X0 > 0`, чтобы аргументы логарифма оставались положительными.
-Шаги строго соответствуют заданию: `h = 2 / 2**n`, `n = 1, …, 21`.
+The main report is [numerical_differentiation.ipynb](numerical_differentiation.ipynb).
+It contains the assignment, analytical derivatives, five finite-difference
+formulas, five executed plots, and conclusions. Each plot compares five methods
+with logarithmic scales on both axes. PNG images are also available in [figures](figures).
 
-## Запуск в VS Code
+**The notebook report, plot labels, and code comments are in Russian.**
 
-1. Установите расширения **Python** и **Jupyter** от Microsoft.
-2. Из корня репозитория установите зависимости:
+## Problem and methods
+
+The lab approximates the first derivatives of five functions:
+
+- `sin(x²)`;
+- `cos(sin(x))`;
+- `exp(sin(cos(x)))`;
+- `ln(x + 3)`;
+- `sqrt(x + 3)`.
+
+It compares forward and backward differences, the central difference,
+and fourth- and sixth-order central formulas. Their truncation error orders
+are **1, 1, 2, 4, and 6**, respectively.
+
+The evaluation point is **x₀ = 1**, since the assignment image does not specify
+one. Change `X0` in the notebook to use another point. For all functions and
+the full set of steps, `X0 > 0` is required to keep every logarithm argument
+positive. The steps follow the assignment: `h = 2 / 2**n`, `n = 1, …, 21`.
+
+## Running in VS Code
+
+1. Install Microsoft's **Python** and **Jupyter** extensions.
+2. Install the dependencies from the repository root:
 
    ```powershell
    python -m pip install -r numerical_differentiation/requirements.txt
    ```
 
-3. Откройте notebook, нажмите **Select Kernel**, выберите Python с установленными
-   зависимостями и нажмите **Run All**. Сохраните notebook, чтобы сохранить результаты.
+3. Open the notebook, choose **Select Kernel**, select the Python environment
+   with the installed dependencies, and click **Run All**. Save the notebook
+   to retain its outputs.
 
-GitHub отображает сохранённые ячейки и рисунки notebook без запуска Python.
-Для пересчёта нужен локальный запуск.
+GitHub displays saved notebook cells and plots without running Python.
+Recomputing the results requires a local execution environment.
 
-## Запуск без notebook
+## Running without a notebook
 
 ```powershell
 python numerical_differentiation/differentiation.py
 ```
 
-Скрипт сохраняет пять PNG и открывает пять отдельных фигур при доступном
-графическом backend Matplotlib. В notebook каждая фигура выводится в своей ячейке.
+The script saves five PNG files and opens five separate figures when a graphical
+Matplotlib backend is available. In the notebook, each figure appears in its own cell.
 
-Запуск через настоящее ядро Jupyter также проверен: все семь ячеек выполнены
-без ошибок, пять рисунков и текстовый вывод сохранены в notebook.
+## Numerical accuracy and validation
 
-Вычисления выполняются в `float64`. Погрешность считается относительно
-аналитической производной, вычисленной в той же арифметике. Если разность
-окажется равна нулю, она сохраняется в данных, но пропускается на логарифмической
-оси — искусственный положительный порог не используется.
+Calculations use `float64`. Absolute errors are measured against analytical
+derivatives evaluated in the same arithmetic. A computed zero error remains
+zero in the data but is omitted from the logarithmic plot; no artificial
+positive floor is introduced.
+
+The plots illustrate both truncation error and the effect of roundoff at small
+steps. A smaller step does not always produce a more accurate derivative.
+
+The notebook has been executed with a Jupyter kernel: all seven code cells
+completed successfully, with five figures and text outputs saved in the report.
